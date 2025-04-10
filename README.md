@@ -1,2 +1,2 @@
 # optimizer-article
-Types pf Optimizers in Deep learning and its application
+Types of Optimizers in Deep learning and its application.
