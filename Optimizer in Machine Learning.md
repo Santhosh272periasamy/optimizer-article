@@ -1,131 +1,144 @@
-**Title** : Optimizer in Deep Learning.
+# Optimizer in Deep Learning
 
-**Introduction** :
+## Introduction
 
-Deep learning is a subset of Machine Learning that primarily uses Neural networks to perform complex tasks. These Neural networks consist of multiple Hidden layers and each contains multiple neurons for processing and performing complex patterns in a large dataset . Deep Learning is powerful for handling unstructured data such as images, audio, and text, making it widely applicable across various fields like computer vision, natural language processing, and speech recognition.
+Deep learning is a subset of Machine Learning that primarily uses Neural Networks to perform complex tasks. These networks consist of multiple hidden layers, each containing multiple neurons that process and learn patterns in large datasets. Deep Learning excels at handling unstructured data such as images, audio, and text, making it widely applicable across fields like computer vision, natural language processing, and speech recognition.
 
-**What is Optimizer in Deep Learning:**
+## What is an Optimizer in Deep Learning?
 
-	As we all know Deep Learning is designed to perform Complex problems and **Optimizer**  play an important role in improving accuracy of these models. One of the foundational techniques used across many optimizers is the **gradient-based approach,** which is one of the basic and common methods used in all Optimizers.
+Optimizers play a critical role in improving the accuracy of deep learning models. A common foundational technique is the **gradient-based approach**, used in nearly all optimizers.
 
-	In deep learning, an optimizer is a crucial element that dynamically fine-tunes parameters in the neural network’s during training. Its main objective is to **minimize the model’s loss function**, thereby improving performance. This is done by **iteratively updating the parameters** based on the feedback (errors) received from the model’s predictions.
+An optimizer dynamically adjusts the model's parameters during training to **minimize the loss function**. This is achieved by **iteratively updating the parameters** based on feedback from the model's prediction errors.
 
-There are various types of optimization algorithms each employing unique strategies to efficiently guide the model toward the best possible parameter values. In the following sections, we will explore the different types of optimizers and their specific applications in deep learning.
+There are various optimization algorithms, each with unique strategies to guide the model toward optimal parameter values. The following sections describe the types of optimizers and their roles.
 
-**Important terms**:
+## Important Terms
 
-* **Weights**: Weights represent the importance assigned to input features during training. Higher weights indicate that the feature has a greater influence on the model’s predictions.
+- **Weights**: Importance assigned to input features during training.
+- **Biases**: Additional parameter that shifts the activation function for better prediction accuracy.
+- **Epoch**: One complete pass of the entire dataset through the learning algorithm.
+- **Sample**: A single data point in the dataset.
+- **Batch**: A subset of samples used in one training iteration.
+- **Learning Rate**: Controls the size of the step taken during weight updates.
 
-* **Biases**: Bias is an additional parameter that helps the model make accurate predictions by shifting the activation function. A high bias can indicate underfitting, leading to poor model performance.
+---
 
-* **Epoch**: An epoch refers to one complete pass of the entire dataset through the learning algorithm during training.
+## Types of Optimizers
 
-* **Sample**: A sample is a single data point or row in the dataset.
+### 1. Gradient Descent (GD)
 
-* **Batch**: A batch is a group of samples selected from the dataset used to train the model in a single iteration. It helps improve training efficiency and stability.
+- **Working**: Uses the **entire dataset** to calculate gradients.
+- **Update Frequency**: Once per epoch.
+- **Formula**:  
+  `w = w - lr * gradient`
+- **Example**: Like finding the lowest point in a valley by averaging all terrain.
+- **Advantages**:
+  - Stable and accurate gradient estimates
+  - Smooth convergence
+- **Disadvantages**:
+  - Slow training
+  - Computationally expensive for large datasets
 
-* **Learning Rate**: The learning rate controls how much the model’s weights are updated in response to the calculated error. A higher learning rate speeds up training but risks overshooting, while a lower rate improves accuracy but may slow down convergence.
+---
 
-**Types of Optimizer**:
+### 2. Stochastic Gradient Descent (SGD)
 
-1. Gradient Descent Optimizer:
+- **Working**: Updates weights **per sample**.
+- **Update Frequency**: 1 update per sample (e.g., 100 updates per epoch if 100 samples).
+- **Advantages**:
+  - Faster updates
+  - Helps escape local minima
+- **Disadvantages**:
+  - Noisy updates, less stable
+  - Requires careful tuning of parameters
 
-   
+---
 
-* **Working**: Calculates the gradient using the **entire dataset** at once.   
-* **Weight Update**: Occurs **once per epoch**, after processing all data. Move in the direction of the negative gradient to minimize loss.  
-* Update rule : w \= w \- lr \* gradient  
-* Ex : Imagine you're trying to find the lowest point in the valley by calculating the average slope from every rock in the valley \- its accurate but slow  
-* **Advantages**:	  
-  * Produces a more **stable and accurate** gradient.  
-  * Tends to converge smoothly.  
-*  **Disadvantages**:  
-  * **Slower training** time since it waits for one full pass over the data.  
-  * Can be **computationally expensive** for large datasets.  
-       
-2. Stochastic Gradient Descent  
-* **Working**: Updates weights **for each individual data point**.  
-* **Weight Update**: If an epoch has 100 samples, it performs **100 updates per epoch**.  
-* **Stochastic Nature**: Introduces **randomness** as it selects one data point at a time.  
-* **Advantages**:  
-  * **Faster updates** and more frequent learning.  
-  * Can help escape local minima due to randomness.  
-* **Disadvantages**:  
-  * Updates are **noisy and less stable**, which may lead to convergence oscillations.  
-  * Needs **careful tuning** of learning rate and other parameters.
+### 3. Mini-Batch Gradient Descent
 
-    
+- **Working**: Uses **small batches** of data per update.
+- **Advantages**:
+  - Faster than GD, more stable than SGD
+  - Enables vectorized operations
+- **Disadvantages**:
+  - Requires tuning batch size and learning rate
 
-3.  Mini-Batch Gradient Descent:  
-* Unlike the SGD and GD it performs with small batches within the epoch.  
-* **Working**: Divides the dataset into small batches and updates weights for each batch. Combines the efficiency of GD with the speed of SGD.  
-*  **Advantages**:
+---
 
-  * Faster than GD, more stable than SGD  
-  * Leverages vectorization in computation
+### 4. SGD with Momentum
 
-* **Disadvantages**:  
-  * Still requires tuning of batch size and learning rate
+- **Concept**: Keeps velocity from past updates, like a ball rolling downhill.
+- **Formula**:  
+  `v = γv + lr * ∇Loss(w)`  
+  `w = w - v`
+- **Advantages**:
+  - Faster convergence
+  - Smoother updates
+- **Disadvantages**:
+  - Requires additional tuning
 
-4. SGD with Momentum:  
-* Think of it like a ball rolling downhill , Keeps some speed from previous steps → smoother, faster descent.  
-* **Momentum** \= Like pushing a rolling ball down a hill → gains speed, less bounce.  
-* **Formula**:  
-   v \= γv \+ lr \* ∇Loss(w)  
-   w \= w \- v  
-*  **Advantages**:  
-  * Faster convergence  
-  * Reduces zig-zagging  
-* **Disadvantages**:  
-  * Slightly more complex to tune
+---
 
-5. Nesterov Accelerated Gradient (NAG):  
-* Like momentum but looks ahead before computing gradient.**More responsive than momentum**  
-* **Advantages:**  
-  * Anticipates next position  
-  * Faster, more accurate descent  
-* **Disadvantages:**  
-  * Slightly more overhead  
-      
-      
-6. Adagrad (Adaptive Gradient) :  
-* Like walking cautiously → slows down where it's steep (frequent gradients), speeds up where it's flat (rare updates).  
-*  **Advantages**:  
-  * Good for sparse data (e.g., NLP)  
-  * No need to manually tune learning rate  
-* **Disadvantages**:  
-  * Learning rate keeps decreasing — may stop learning  
-      
-7. RMSprop (Root Mean Square Propagation):  
-* Fixes Adagrad’s shrinking learning rate problem by using moving averages of squared gradients.  
-* **Advantages:**  
-  * Maintains a steady learning rate Good for RNNs  
-* **Disadvantages:**  
-  * Sensitive to hyperparameters
+### 5. Nesterov Accelerated Gradient (NAG)
 
+- **Concept**: Similar to momentum but looks ahead before updating.
+- **Advantages**:
+  - Anticipates future position
+  - More accurate updates
+- **Disadvantages**:
+  - Slightly more computational overhead
 
-8. Adam (Adaptive Moment Estimation):  
-* Combines Momentum \+ RMSprop. The most widely used optimizer.  
-* Maintains both first moment (mean) and second moment (variance) of gradients. **Stable and fast convergence**  
-*  **Advantages:**  
-  * Works well across many tasks  
-  * Fast and stable convergence
+---
 
-* **Disadvantages:**  
-  * Can be biased in early stages (usually corrected with bias correction)
+### 6. Adagrad (Adaptive Gradient)
 
-* **Important Information :**  
-  When it comes to deep learning **frameworks** (like PyTorch, TensorFlow, Keras), the term **"SGD"** usually refers to **Mini-Batch SGD**, not the strict theoretical SGD that uses **1 sample at a time**.  
-    
-* **Theoretical SGD** \= 1 sample → 1 update (rarely used in real-world DL)  
-    
-* **Practical / Common "SGD" in frameworks** \= **Mini-Batch SGD** → uses a small batch (like 32 or 64\) for each update.
+- **Concept**: Adapts learning rate based on frequency of parameters.
+- **Advantages**:
+  - Effective for sparse data (e.g., NLP)
+  - No need to manually tune learning rate
+- **Disadvantages**:
+  - Learning rate decreases over time → may stop learning
 
-  When we say things like **"SGD with Momentum"**, or **"SGD with Weight Decay"** in a framework, it’s usually a mini-batch behind the scenes.  
-    
-* What is Weight Decay (L2 Regularization)?
+---
 
-  **Weight decay**, often implemented as **L2 regularization**, is a technique used to penalize large model weights during training. By adding a term to the loss function or directly modifying the optimizer's update rule, it encourages the model to learn simpler, more general patterns, ultimately helping to reduce overfitting and improve performance on unseen data.
+### 7. RMSprop (Root Mean Square Propagation)
 
-**Conclusion:**  
-Optimizers are essential in deep learning for minimizing the loss function and improving model accuracy. Depending on the task, different optimizers and techniques like momentum or L2 regularization can make a big difference. A solid understanding of these techniques helps in building models that are both faster and more accurate
+- **Concept**: Uses moving average of squared gradients to stabilize learning rate.
+- **Advantages**:
+  - Good for RNNs
+  - Maintains steady learning rate
+- **Disadvantages**:
+  - Sensitive to hyperparameters
+
+---
+
+### 8. Adam (Adaptive Moment Estimation)
+
+- **Concept**: Combines momentum and RMSprop.
+- **Tracks**:
+  - First moment (mean)
+  - Second moment (variance)
+- **Advantages**:
+  - Fast and stable
+  - Performs well on many tasks
+- **Disadvantages**:
+  - Biased in early training (bias-corrected internally)
+
+---
+
+## Practical Notes on Optimizer Usage
+
+- In deep learning **frameworks** like PyTorch, TensorFlow, and Keras, **"SGD"** usually refers to **Mini-Batch SGD**, not the theoretical version (1 sample → 1 update).
+- Variants like **"SGD with Momentum"** or **"SGD with Weight Decay"** typically use mini-batches under the hood.
+
+---
+
+## Weight Decay (L2 Regularization)
+
+**Weight decay**, or **L2 regularization**, is a technique to reduce overfitting by penalizing large weights. It adds a term to the loss function to encourage smaller, simpler models that generalize better.
+
+---
+
+## Conclusion
+
+Optimizers are essential for training deep learning models. Understanding their strengths, weaknesses, and use cases allows for smarter choices when building models. Whether it’s simple SGD, adaptive optimizers like Adam, or enhancements like momentum and weight decay, each has its place in improving accuracy and performance.
