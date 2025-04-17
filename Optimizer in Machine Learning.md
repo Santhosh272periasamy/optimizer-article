@@ -168,8 +168,13 @@ There are various types of optimization algorithms, each employing unique strate
 
 ## Important Notes
 
+
 - In frameworks like PyTorch, TensorFlow, and Keras, “SGD” usually means **Mini-Batch SGD**, not the theoretical 1-sample version.
 - When you see terms like **“SGD with Momentum”**, it usually refers to mini-batch variants.
+
+![image.png](attachment:b4065dee-1c0f-43e5-9129-e087d1fdb30e.png)
+
+![image.png](attachment:2a3acddf-4d24-4404-a6c0-12f7743c785f.png)
 
 ---
 
